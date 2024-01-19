@@ -39,7 +39,7 @@ public class RepeatBackground : MonoBehaviour
     // Update is called once per frame
     void Update()
     { 
-        Debug.Log(gameManager.timesBackgroundTilled);
+       // Debug.Log(gameManager.timesBackgroundTilled);
         //Reset the Background to city 
         if (gameManager.timesBackgroundTilled == 0)
         {

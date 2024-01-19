@@ -26,22 +26,53 @@ public class GameManager : MonoBehaviour {
     private Vector3 spawnPosMoney = new Vector3(25, 4, 0);
     private Vector3 spawnPosObstical = new Vector3(25, 0, 0);
     private float startDelay = 2;
-    private float repeatRateObstical = 2;
-    private float repeatRateMoney = 8;
+    //private float repeatRateObsticalMin = .5f;//how many sec between new obstical
+   // private float repeatRateObsticalMax = 4;
+    //private float repeatRateMoney = 8;
+    //version 2 spawn system
+    float spawnInterval;
+    float spawnIntervalMin = 0.25f;
+    float spawnIntervalMax = 2f;
+    int moreMoneySpawned = 2; // cycles more money vs obsticals
 
     /// <summary>
     /// /LEVEL CHANGE
     /// </summary>
     public int timesBackgroundTilled;
 
+    private void Update()
+    {
+        spawnInterval -= Time.deltaTime;
+        if(spawnInterval<=0)
+        {
+            Debug.Log(moreMoneySpawned);
 
+            if (moreMoneySpawned > 0)
+            {
+                  SpawnMoney();
+                moreMoneySpawned--;
+            }
+            else {
+               SpawnObstacle();
+                moreMoneySpawned = 2;
+            }
+
+
+
+            spawnInterval = Random.Range(spawnIntervalMin, spawnIntervalMax);
+        }
+    }
     private void Start()
     {
         isGameActive = false;
         GetMoney(0);
         levelText.text = "LEVEL 1";
-        InvokeRepeating("SpawnObstacle", startDelay, repeatRateObstical);
-        InvokeRepeating("SpawnMoney", startDelay, repeatRateMoney);
+        //OLD SPAWN SYSTEM doesn't allow for easy randomization
+        //  InvokeRepeating("SpawnObstacle", startDelay, Random.Range(repeatRateObsticalMin, repeatRateObsticalMax));
+        //  InvokeRepeating("SpawnMoney", startDelay, repeatRateMoney);
+        //NEW SPAWN SYSTEM-runs on Update() per frame basis
+        spawnInterval = Random.Range(spawnIntervalMin, spawnIntervalMax);
+        moreMoneySpawned = 2;
         Physics.gravity *= 3;
     }
     /// <summary>
@@ -64,6 +95,7 @@ public class GameManager : MonoBehaviour {
     {
         if (isGameActive)
         {
+            
             Instantiate(obsticalPrefab[Random.Range(0, obsticalPrefab.Length)], spawnPosObstical, obsticalPrefab[0].transform.rotation);
          
         }
