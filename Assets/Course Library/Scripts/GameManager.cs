@@ -21,19 +21,19 @@ public class GameManager : MonoBehaviour {
     /// 
     public GameObject background;
     public GameObject[] obsticalPrefab;
+    public GameObject bomb;
     public GameObject money;
     public GameObject player;
     private Vector3 spawnPosMoney = new Vector3(25, 4, 0);
     private Vector3 spawnPosObstical = new Vector3(25, 0, 0);
     private float startDelay = 2;
-    //private float repeatRateObsticalMin = .5f;//how many sec between new obstical
-   // private float repeatRateObsticalMax = 4;
-    //private float repeatRateMoney = 8;
+   
     //version 2 spawn system
     float spawnInterval;
-    float spawnIntervalMin = 0.25f;
+    float spawnIntervalMin = 0.25f; //in seconds
     float spawnIntervalMax = 2f;
     int moreMoneySpawned = 2; // cycles more money vs obsticals
+    float randomizer = 1; // puts bombs in with money
 
     /// <summary>
     /// /LEVEL CHANGE
@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour {
         spawnInterval -= Time.deltaTime;
         if(spawnInterval<=0)
         {
-            Debug.Log(moreMoneySpawned);
+           // Debug.Log(moreMoneySpawned);
 
             if (moreMoneySpawned > 0)
             {
@@ -67,11 +67,10 @@ public class GameManager : MonoBehaviour {
         isGameActive = false;
         GetMoney(0);
         levelText.text = "LEVEL 1";
-        //OLD SPAWN SYSTEM doesn't allow for easy randomization
-        //  InvokeRepeating("SpawnObstacle", startDelay, Random.Range(repeatRateObsticalMin, repeatRateObsticalMax));
-        //  InvokeRepeating("SpawnMoney", startDelay, repeatRateMoney);
+        
         //NEW SPAWN SYSTEM-runs on Update() per frame basis
         spawnInterval = Random.Range(spawnIntervalMin, spawnIntervalMax);
+
         moreMoneySpawned = 2;
         Physics.gravity *= 3;
     }
@@ -102,11 +101,19 @@ public class GameManager : MonoBehaviour {
     }
     void SpawnMoney()
     {
+        
        // Debug.Log("Money From the Sky");
         if (isGameActive)
         {
-            Instantiate(money, spawnPosMoney, obsticalPrefab[0].transform.rotation);
+            randomizer = Random.Range(0f, 5f);
+           // Debug.Log("randomizer" + randomizer);
+            if (randomizer > 2f) {
+                Instantiate(money, spawnPosMoney, obsticalPrefab[0].transform.rotation); }
+            else {
+                Instantiate(bomb, spawnPosMoney, obsticalPrefab[0].transform.rotation);
+            }
         }
+
     }
 
 /// </summary>
@@ -138,12 +145,15 @@ public void GameOver() {
     }
     public void RemoveAllGameObjects()
     {
-        //DESTROY OBJECTS 
+        //DESTROY OBSTICALS 
         GameObject[] gos = GameObject.FindGameObjectsWithTag("Obstical");
         foreach (GameObject go in gos) { Destroy(go); }
         //DESTROY MONEY
         GameObject[] moneyArray = GameObject.FindGameObjectsWithTag("Money");
         foreach (GameObject go in moneyArray) { Destroy(go); }
+        //DESTROY BOMB
+        GameObject[] bombArray = GameObject.FindGameObjectsWithTag("Bomb");
+        foreach (GameObject go in bombArray) { Destroy(go); }
         //DESTROY PLAYER
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject go in players) { Destroy(go); }

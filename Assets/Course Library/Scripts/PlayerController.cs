@@ -70,6 +70,11 @@ public class PlayerController : MonoBehaviour
             playerAudio.PlayOneShot(getMoneySound, 1f);
             gameManager.GetMoney(1);
         }
+        else if (collision.gameObject.CompareTag("Bomb"))
+        {
+            Destroy(collision.gameObject);
+            GameOver();
+        }
     }
     private void GameOver() {
         playerAnim.SetBool("Death_b", true);

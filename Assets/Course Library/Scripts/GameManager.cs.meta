@@ -3,7 +3,16 @@ guid: 19cc00da27668e945876c9803580b317
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - startMenu: {instanceID: 0}
+  - scoreViewer: {instanceID: 0}
+  - walletText: {instanceID: 0}
+  - levelText: {instanceID: 0}
+  - tryAgainText: {instanceID: 0}
+  - background: {fileID: 2944941782607731598, guid: 3e688814c4f07294b9da21020aa32523, type: 3}
+  - bomb: {fileID: 11368019182273911, guid: 1db47c5ef25154fb1806822c25335042, type: 3}
+  - money: {fileID: 6784149715240125558, guid: bff1590458c4d284fa049dbc02c9a0b7, type: 3}
+  - player: {fileID: 297527329013658156, guid: 44b0999b973166e409cf3df1b43858dc, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
