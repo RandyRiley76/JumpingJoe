@@ -70,6 +70,10 @@ PrefabInstance:
       propertyPath: m_Size.z
       value: 1.33
       objectReference: {fileID: 0}
+    - target: {fileID: 4777454022015003827, guid: 1a2f8a5a82c083c44a136bb64d081bac, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8579601760348528630, guid: 1a2f8a5a82c083c44a136bb64d081bac, type: 3}
       propertyPath: m_Name
       value: Money

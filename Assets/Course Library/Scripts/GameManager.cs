@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour {
    
     //version 2 spawn system
     float spawnInterval;
-    float spawnIntervalMin = 0.25f; //in seconds
+    float spawnIntervalMin = 0.4f; //in seconds
     float spawnIntervalMax = 2f;
     int moreMoneySpawned = 2; // cycles more money vs obsticals
     float randomizer = 1; // puts bombs in with money

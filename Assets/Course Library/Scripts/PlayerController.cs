@@ -50,21 +50,16 @@ public class PlayerController : MonoBehaviour
             playerAudio.PlayOneShot(jumpSound, 1f);
         }
     }
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)//Moved the collisions to be triggers so that it wouldn't bounce off object when getting powerup
     {
-        if (collision.gameObject.CompareTag("Ground")&& gameManager.isGameActive)
+            if (collision.gameObject.CompareTag("Obstical"))
         {
-            isOnGround = true;
-            dirtParticle.Play();
-            
-        }
-        else if (collision.gameObject.CompareTag("Obstical")) {
-           // Destroy(collision.gameObject);
+            // Destroy(collision.gameObject);
             GameOver();
         }
         else if (collision.gameObject.CompareTag("Money"))
         {
-           // Debug.Log("Its $ Time");
+            // Debug.Log("Its $ Time");
             moneyBlast.Play();
             Destroy(collision.gameObject);
             playerAudio.PlayOneShot(getMoneySound, 1f);
@@ -72,9 +67,21 @@ public class PlayerController : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Bomb"))
         {
+
             Destroy(collision.gameObject);
             GameOver();
         }
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        //IF ON GROUND THEN PLAY THE DIRT PARTICLES
+        if (collision.gameObject.CompareTag("Ground")&& gameManager.isGameActive)
+        {
+            isOnGround = true;
+            dirtParticle.Play();
+            
+        }
+  
     }
     private void GameOver() {
         playerAnim.SetBool("Death_b", true);
