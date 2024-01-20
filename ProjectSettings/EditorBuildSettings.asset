@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Prototype 3.unity
+    path: Assets/Scenes/JumpingJoeGame.unity
     guid: dc8c9f3efd746429fa6f9482dc779492
+  - enabled: 1
+    path: Assets/Scenes/NextLevelCutScene.unity
+    guid: 4a1314d7ab861f24797d093f5d31f264
   m_configObjects: {}

@@ -52,7 +52,12 @@ public class PlayerController : MonoBehaviour
     }
     private void OnTriggerEnter(Collider collision)//Moved the collisions to be triggers so that it wouldn't bounce off object when getting powerup
     {
-          if (collision.gameObject.CompareTag("Money"))
+            if (collision.gameObject.CompareTag("Obstical"))
+        {
+            // Destroy(collision.gameObject);
+            GameOver();
+        }
+        else if (collision.gameObject.CompareTag("Money"))
         {
             // Debug.Log("Its $ Time");
             moneyBlast.Play();
@@ -70,12 +75,7 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         //IF ON GROUND THEN PLAY THE DIRT PARTICLES
-        if (collision.gameObject.CompareTag("Obstical"))
-        {
-            // Destroy(collision.gameObject);
-            GameOver();
-        }
-        else if (collision.gameObject.CompareTag("Ground")&& gameManager.isGameActive)
+        if (collision.gameObject.CompareTag("Ground")&& gameManager.isGameActive)
         {
             isOnGround = true;
             dirtParticle.Play();

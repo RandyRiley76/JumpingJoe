@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.SceneManagement;
+using UnityEngine.SceneManagement;//Needed to load levels
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
@@ -10,17 +10,28 @@ public class GameManager : MonoBehaviour {
     public GameObject startMenu;
     public GameObject scoreViewer;//show level and money in left
     public TextMeshProUGUI walletText;
-   // public TextMeshProUGUI levelText;
+<<<<<<< HEAD
     public TextMeshProUGUI highScoreText;
+    public TextMeshProUGUI walletTextLevelMenu;
+    public TextMeshProUGUI highScoreTextLevelMenu;
+    public TextMeshProUGUI tryAgainText;
+
+    ///GLOBAL VARS
+    ///
+   
+    public static bool isGameActive;
+    private static int highScore=0;
+    private static int walletTotal = 0;
+=======
+    public TextMeshProUGUI levelText;
     public TextMeshProUGUI tryAgainText;
 
     public bool isGameActive;
-    private int highScore=0;
     private int walletTotal = 0;
     // public GameObject spawnManager;
+>>>>>>> parent of 5645ebd (HighScore)
 
     /// SPAWN STUFF
-    /// 
     public GameObject background;
     public GameObject[] obsticalPrefab;
     public GameObject bomb;
@@ -41,6 +52,26 @@ public class GameManager : MonoBehaviour {
     /// /LEVEL CHANGE
     /// </summary>
     public int timesBackgroundTilled;
+
+
+    public static GameManager Instance;
+
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+        Physics.gravity *= 3;//this needs to be called just once
+        DontDestroyOnLoad(gameObject);
+        isGameActive = false;
+    }
+ 
+      
+    
+    
 
     private void Update()
     {
@@ -64,22 +95,28 @@ public class GameManager : MonoBehaviour {
             spawnInterval = Random.Range(spawnIntervalMin, spawnIntervalMax);
         }
     }
-    private void SetHighScore(int wallet) {
-        if (wallet > highScore) { highScore = wallet; }
-    highScoreText.text ="HIGH SCORE $"+ highScore;
-    }
     private void Start()
     {
+<<<<<<< HEAD
+       
+        // GetMoney(0);
+        //SetHighScore(0);
+        //
+       // if (highScoreTextLevelMenu != null)
+       // {
+            highScoreTextLevelMenu.text = "Your Pretty Smart ,Maybe";
+       // }
+
+=======
         isGameActive = false;
         GetMoney(0);
-        SetHighScore(0);
-        //
+        levelText.text = "LEVEL 1";
         
+>>>>>>> parent of 5645ebd (HighScore)
         //NEW SPAWN SYSTEM-runs on Update() per frame basis
         spawnInterval = Random.Range(spawnIntervalMin, spawnIntervalMax);
 
-        moreMoneySpawned = 2;
-        Physics.gravity *= 3;
+       
     }
     /// <summary>
     public void SpawnStuff()
@@ -100,10 +137,8 @@ public class GameManager : MonoBehaviour {
     void SpawnObstacle()
     {
         if (isGameActive)
-        {
-            
-            Instantiate(obsticalPrefab[Random.Range(0, obsticalPrefab.Length)], spawnPosObstical, obsticalPrefab[0].transform.rotation);
-         
+        {  
+            Instantiate(obsticalPrefab[Random.Range(0, obsticalPrefab.Length)], spawnPosObstical, obsticalPrefab[0].transform.rotation);         
         }
     }
     void SpawnMoney()
@@ -129,18 +164,16 @@ public void GameOver() {
      
         isGameActive = false;
        startMenu.SetActive(true);
-        tryAgainText.text = "Do you want to try again?";
+        tryAgainText.text = "That was pretty good. Do you want to try again?";
     }
  
     public void RestartGame()
     {
 
         RemoveAllGameObjects();
-        SetHighScore(walletTotal);
         walletTotal = 0;
         isGameActive = true;
-        //highScoreText.text = "LEVEL 1";
-
+        levelText.text = "LEVEL 1";
         GetMoney(0);
         timesBackgroundTilled = 0;
         //Debug.Log("Game Over " + timesBackgroundTilled);
@@ -148,8 +181,37 @@ public void GameOver() {
         startMenu.SetActive(false);
         scoreViewer.SetActive(true);
         
-        SpawnStuff();
+<<<<<<< HEAD
+        SpawnStuff();  
+    }
+    public void NextLevel()
+    {
+
        
+        SceneManager.LoadScene(0);
+        
+       
+        
+        RemoveAllGameObjects();
+       
+        SetHighScore(walletTotal);
+       
+       // isGameActive = true;
+       
+
+        GetMoney(0);
+        timesBackgroundTilled = 0;
+        //Debug.Log("Game Over " + timesBackgroundTilled);
+        //UI
+        startMenu.SetActive(false);
+        scoreViewer.SetActive(true);
+
+        SpawnStuff();
+=======
+        SpawnStuff();
+        // SceneManager.LoadScene
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+>>>>>>> parent of 5645ebd (HighScore)
     }
     public void RemoveAllGameObjects()
     {
@@ -168,10 +230,23 @@ public void GameOver() {
     }
     public void GetMoney(int moneyCollected)
     {
-        walletTotal += moneyCollected;
-        SetHighScore(walletTotal);
-        walletText.text = "You've got $" + walletTotal;
-    }
 
+        walletTotal += moneyCollected;
+    walletText.text = "Wallet has $" + walletTotal;
+    }
+    public void GoToLevelMenu() {
+        isGameActive = false;
+        SceneManager.LoadScene(1);
+        //SetLevelMenuScore();
+
+       // Debug.Log("HS " + highScore);
+      //  highScoreTextLevelMenu.text = "HIGH SCORE $";
+      //  walletTextLevelMenu.text = "You've Got $" + walletTotal;
+    }
+    private void SetLevelMenuScore()
+    {
+        highScoreTextLevelMenu.text = "HIGH SCORE $" + highScore;
+        walletTextLevelMenu.text = "You've Got $" + walletTotal;
+    }
 
 }
