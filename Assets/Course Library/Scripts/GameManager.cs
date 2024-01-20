@@ -10,10 +10,12 @@ public class GameManager : MonoBehaviour {
     public GameObject startMenu;
     public GameObject scoreViewer;//show level and money in left
     public TextMeshProUGUI walletText;
-    public TextMeshProUGUI levelText;
+   // public TextMeshProUGUI levelText;
+    public TextMeshProUGUI highScoreText;
     public TextMeshProUGUI tryAgainText;
 
     public bool isGameActive;
+    private int highScore=0;
     private int walletTotal = 0;
     // public GameObject spawnManager;
 
@@ -62,11 +64,16 @@ public class GameManager : MonoBehaviour {
             spawnInterval = Random.Range(spawnIntervalMin, spawnIntervalMax);
         }
     }
+    private void SetHighScore(int wallet) {
+        if (wallet > highScore) { highScore = wallet; }
+    highScoreText.text ="HIGH SCORE $"+ highScore;
+    }
     private void Start()
     {
         isGameActive = false;
         GetMoney(0);
-        levelText.text = "LEVEL 1";
+        SetHighScore(0);
+        //
         
         //NEW SPAWN SYSTEM-runs on Update() per frame basis
         spawnInterval = Random.Range(spawnIntervalMin, spawnIntervalMax);
@@ -122,16 +129,18 @@ public void GameOver() {
      
         isGameActive = false;
        startMenu.SetActive(true);
-        tryAgainText.text = "That was pretty good. Do you want to try again?";
+        tryAgainText.text = "Do you want to try again?";
     }
  
     public void RestartGame()
     {
 
         RemoveAllGameObjects();
+        SetHighScore(walletTotal);
         walletTotal = 0;
         isGameActive = true;
-        levelText.text = "LEVEL 1";
+        //highScoreText.text = "LEVEL 1";
+
         GetMoney(0);
         timesBackgroundTilled = 0;
         //Debug.Log("Game Over " + timesBackgroundTilled);
@@ -140,8 +149,7 @@ public void GameOver() {
         scoreViewer.SetActive(true);
         
         SpawnStuff();
-        // SceneManager.LoadScene
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+       
     }
     public void RemoveAllGameObjects()
     {
@@ -160,9 +168,9 @@ public void GameOver() {
     }
     public void GetMoney(int moneyCollected)
     {
-
         walletTotal += moneyCollected;
-    walletText.text = "Wallet has $" + walletTotal;
+        SetHighScore(walletTotal);
+        walletText.text = "You've got $" + walletTotal;
     }
 
 
