@@ -10,20 +10,8 @@ public class GameManager : MonoBehaviour {
     public GameObject startMenu;
     public GameObject scoreViewer;//show level and money in left
     public TextMeshProUGUI walletText;
-<<<<<<< HEAD
+   // public TextMeshProUGUI levelText;
     public TextMeshProUGUI highScoreText;
-    public TextMeshProUGUI walletTextLevelMenu;
-    public TextMeshProUGUI highScoreTextLevelMenu;
-    public TextMeshProUGUI tryAgainText;
-
-    ///GLOBAL VARS
-    ///
-   
-    public static bool isGameActive;
-    private static int highScore=0;
-    private static int walletTotal = 0;
-=======
-    public TextMeshProUGUI levelText;
     public TextMeshProUGUI tryAgainText;
 
     public bool isGameActive;
@@ -209,9 +197,7 @@ public void GameOver() {
         SpawnStuff();
 =======
         SpawnStuff();
-        // SceneManager.LoadScene
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
->>>>>>> parent of 5645ebd (HighScore)
+       
     }
     public void RemoveAllGameObjects()
     {
@@ -232,21 +218,8 @@ public void GameOver() {
     {
 
         walletTotal += moneyCollected;
-    walletText.text = "Wallet has $" + walletTotal;
-    }
-    public void GoToLevelMenu() {
-        isGameActive = false;
-        SceneManager.LoadScene(1);
-        //SetLevelMenuScore();
-
-       // Debug.Log("HS " + highScore);
-      //  highScoreTextLevelMenu.text = "HIGH SCORE $";
-      //  walletTextLevelMenu.text = "You've Got $" + walletTotal;
-    }
-    private void SetLevelMenuScore()
-    {
-        highScoreTextLevelMenu.text = "HIGH SCORE $" + highScore;
-        walletTextLevelMenu.text = "You've Got $" + walletTotal;
+        SetHighScore(walletTotal);
+        walletText.text = "You've got $" + walletTotal;
     }
 
 }
