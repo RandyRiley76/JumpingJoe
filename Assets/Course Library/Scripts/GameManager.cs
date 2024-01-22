@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour {
     public TextMeshProUGUI tryAgainText;
 
     public bool isGameActive=false;
-    public int highScore=0;
+    public int highScore;
     private int walletTotal = 0;
     public Vector3 placeHolderPostion;
 
@@ -73,6 +73,8 @@ public class GameManager : MonoBehaviour {
 
     private void Update()
     {
+      //  if (highScore > 0) { SetHighScore(0); }
+        //SPAWN SYSTEM
         spawnInterval -= Time.deltaTime;
         if(spawnInterval<=0)
         {
@@ -90,12 +92,13 @@ public class GameManager : MonoBehaviour {
             spawnInterval = Random.Range(spawnIntervalMin, spawnIntervalMax);
         }
     }
-    private void SetHighScore(int wallet) {
+    public void SetHighScore(int wallet) {
+        highScoreText = GameObject.Find("Canvas/Score/HighScoreText").GetComponent<TextMeshProUGUI>();
         if (wallet > highScore) { highScore = wallet; }
     highScoreText.text ="HIGH SCORE $"+ highScore;
     }
-    
-    //private void OnLevelWasLoaded(int level) //START //
+
+
     private void Start()
     {
         //PAUSE AT GAMESTART
@@ -109,18 +112,20 @@ public class GameManager : MonoBehaviour {
        // 
         moreMoneySpawned = 2;
 
-        SetHighScore(highScore);
+        SetHighScore(0);
         //UI NEEDS TO BE REACTIVATED AFTER GETTING GAME CHARACTER CHANGE
         //turn off the scoreboard before playing.
        // GameObject.Find("Canvas/Score").SetActive(false);
 
     }
-    public void OnLevelWasLoaded(int level)
+    public void OnLevelWasLoaded()
     {
         scoreViewer = GameObject.Find("Canvas/Score");
         //scoreViewer.SetActive(true);
-        SetHighScore(highScore);
+       
+        SetHighScore(0);
     }
+    
     public void RestartGame()///RESTART
     {
         startMenu = GameObject.Find("Canvas/StartMenu");
@@ -128,8 +133,9 @@ public class GameManager : MonoBehaviour {
         scoreViewer.SetActive(true);
         highScoreText = GameObject.Find("Canvas/Score/HighScoreText").GetComponent<TextMeshProUGUI>();
         walletText = GameObject.Find("Canvas/Score/WalletText").GetComponent<TextMeshProUGUI>();
+        //highScoreText.text = highScore;
         GetMoney(0);
-        SetHighScore(highScore);
+        SetHighScore(0);
         //UI
         startMenu.SetActive(false);
         // scoreViewer.SetActive(true);
@@ -137,7 +143,7 @@ public class GameManager : MonoBehaviour {
         RemoveAllGameObjects();
 
         walletTotal = 0;
-        SetHighScore(walletTotal);
+        SetHighScore(0);
         GetMoney(0);
         isGameActive = true;
         timesBackgroundTilled = 0;
@@ -221,6 +227,7 @@ public class GameManager : MonoBehaviour {
 
         isGameActive = false;
         startMenu.SetActive(true);
+        tryAgainText = GameObject.Find("Canvas/StartMenu/About").GetComponent<TextMeshProUGUI>();
         tryAgainText.text = "Do you want to try again?";
     }
     public void Test() {

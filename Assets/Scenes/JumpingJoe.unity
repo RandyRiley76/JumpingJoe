@@ -835,7 +835,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: You've Got $0
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -979,7 +979,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: HIGH SCORE $0
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1554,6 +1554,8 @@ MonoBehaviour:
   highScoreText: {fileID: 858564976}
   tryAgainText: {fileID: 1565248592}
   isGameActive: 0
+  highScore: 0
+  placeHolderPostion: {x: 0, y: 0, z: 0}
   background: {fileID: 835818919}
   obsticalPrefab:
   - {fileID: 989608343341236604, guid: e09db64938a817c4da12b9996e59cb42, type: 3}
@@ -1562,6 +1564,8 @@ MonoBehaviour:
   - {fileID: 4517484926838143768, guid: 6154a6391ab8ef0429b35515ec897145, type: 3}
   bomb: {fileID: 2665576290469508936, guid: b35aacacae6b37748a6270b3458ac429, type: 3}
   money: {fileID: 6784149715240125558, guid: bff1590458c4d284fa049dbc02c9a0b7, type: 3}
+  playerType: 
+  playerIndex: 0
   player:
   - {fileID: 7155279720428449006, guid: 82a78f918c14b84488f40bf354f4bc8b, type: 3}
   - {fileID: 7159096099174470015, guid: a6d77cc5f1f99fd4fb7344ef834d85c7, type: 3}
@@ -1931,6 +1935,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1845276415}
   m_CullTransparentMesh: 1
+--- !u!1 &1875950254 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 297527329013658156, guid: 44b0999b973166e409cf3df1b43858dc, type: 3}
+  m_PrefabInstance: {fileID: 2035092179}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1875950261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875950254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d379080eec417bd41ba600164089c311, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerToDisplay: {fileID: 0}
 --- !u!1 &1928475962
 GameObject:
   m_ObjectHideFlags: 0
@@ -2225,7 +2247,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 297527329013658156, guid: 44b0999b973166e409cf3df1b43858dc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1875950261}
   m_SourcePrefab: {fileID: 100100000, guid: 44b0999b973166e409cf3df1b43858dc, type: 3}
 --- !u!1001 &2128320591
 PrefabInstance:
