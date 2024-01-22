@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviour {
             }
             else {
                SpawnObstacle();
-                moreMoneySpawned = 2;
+                moreMoneySpawned = Random.Range(1,4);
             }
             spawnInterval = Random.Range(spawnIntervalMin, spawnIntervalMax);
         }
