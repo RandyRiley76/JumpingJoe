@@ -6,6 +6,10 @@ using UnityEngine;
 
 public class PlayerSelectManager : MonoBehaviour
 {
+  //  public ParticleSystem moneyBlast;
+    public ParticleSystem dirtParticle;
+    //public ParticleSystem explosionParticle;
+
     public GameObject playerToSelect;
     private GameObject displayPlayer;
     private Animator playerAnim;
@@ -29,6 +33,7 @@ public class PlayerSelectManager : MonoBehaviour
         displayPlayer.transform.localScale += new Vector3(1.5f, 1.5f, 1.5f);
        //Set the Preview Player to Walk
         displayPlayer.GetComponent<Animator>().SetFloat("Speed_f", 1);
+        //dirtParticle.Play();
         GameManager.Instance.playerType = playerToSelect.name;
         //Debug.Log(playerToSelect.name);
         //GameManager.Instance.Test();

@@ -28,7 +28,13 @@ public class PlayerController : MonoBehaviour
         playerAudio = GetComponent<AudioSource>();
         playerRb = GetComponent<Rigidbody>();
         playerAnim = GetComponent<Animator>();
-    }
+
+
+        ///
+      //  moneyBlast = GameObject.Find("Player0(Clone)/FX_Fireworks_Yellow_Small").GetComponent<ParticleSystem>();
+      // dirtParticle = GameObject.Find("Player0/FX_Fireworks_Yellow_Small").GetComponent<ParticleSystem>(); 
+      //  explosionParticle = GameObject.Find("FX_Fireworks_Yellow_Small").GetComponent<ParticleSystem>(); 
+}
 
     // Update is called once per frame
     void Update()
@@ -69,6 +75,12 @@ public class PlayerController : MonoBehaviour
         {
             // Destroy(collision.gameObject);
             GameOver();
+            //Kill the money and bombs from the screen
+            GameObject[] moneyArray = GameObject.FindGameObjectsWithTag("Money");
+            foreach (GameObject go in moneyArray) { Destroy(go); }
+            //DESTROY BOMB
+            GameObject[] bombArray = GameObject.FindGameObjectsWithTag("Bomb");
+            foreach (GameObject go in bombArray) { Destroy(go); }
         }//IF ON GROUND THEN PLAY THE DIRT PARTICLES
         else if (collision.gameObject.CompareTag("Ground")&& GameManager.Instance.isGameActive)
         {

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerSelectAtMenu : MonoBehaviour
 {
+    public ParticleSystem moneyBlast;
+    public ParticleSystem dirtParticle;
+    public ParticleSystem explosionParticle;
     private string selectedPlayer = "Player0";
     public GameObject playerToSelect;
     private Animator playerAnim;
@@ -20,7 +23,7 @@ public class PlayerSelectAtMenu : MonoBehaviour
     }
     void Start()
     {
-      
+        dirtParticle.Stop();
     //  Debug.Log(displayPlayer);
 
 }
@@ -34,6 +37,7 @@ public class PlayerSelectAtMenu : MonoBehaviour
     }
     private void OnMouseDown()
     {
+        moneyBlast.Play();
         //FIGURE OUT WHICH CHARACTER WAS SELECTED AND GIVE NAME
         playerToSelect = GameObject.Find(gameObject.name);
         playerSelectManager.GetComponent<PlayerSelectManager>().playerToSelect = playerToSelect;

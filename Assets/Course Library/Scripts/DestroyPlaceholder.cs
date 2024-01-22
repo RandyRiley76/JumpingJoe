@@ -19,7 +19,7 @@ public class DestroyPlaceholder : MonoBehaviour
 
         Instantiate(playerToDisplay, this.gameObject.transform.position, this.gameObject.transform.rotation);
        // Instantiate(GameManager.Instance.player[6], this.gameObject.transform.position, this.gameObject.transform.rotation);
-        Debug.Log(indexOfPlayer);
+       // Debug.Log(indexOfPlayer);
         Destroy(this.gameObject);
     }
 

@@ -1396,7 +1396,7 @@ GameObject:
   - component: {fileID: 1565248593}
   - component: {fileID: 1565248592}
   m_Layer: 5
-  m_Name: Text (TMP)About
+  m_Name: About
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
