@@ -50,15 +50,15 @@ public class RepeatBackground : MonoBehaviour
             transform.position = startPos;
             gameManager.timesBackgroundTilled++;
             //CHANGE BACKGROUND SPRITE
-            
+                //LEVEL 2
                 if (gameManager.timesBackgroundTilled == 6)
             {
                 spriteRenderer.sprite = bgTown;
-                levelText.text = "LEVEL 2";
-            }
+              
+            }   //LEVEL 3
             else if (gameManager.timesBackgroundTilled == 12) {
                 spriteRenderer.sprite = bgNature;
-                levelText.text = "LEVEL 3";
+         
             }
         }
     }

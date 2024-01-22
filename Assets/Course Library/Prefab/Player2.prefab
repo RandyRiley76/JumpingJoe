@@ -1043,9 +1043,10 @@ GameObject:
   - component: {fileID: 8863541743395701975}
   - component: {fileID: 5410998754584867853}
   - component: {fileID: 2407461003949504961}
+  - component: {fileID: 4820637045169878794}
   m_Layer: 0
   m_Name: Player2
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1120,7 +1121,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9004434708624858921}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 80
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -1137,7 +1138,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 122
   m_CollisionDetection: 0
 --- !u!82 &5410998754584867853
 AudioSource:
@@ -1253,6 +1254,27 @@ MonoBehaviour:
   moneyBlast: {fileID: 19860484, guid: 6586ff0f14125534cae2f5d8f04b7871, type: 3}
   dirtParticle: {fileID: 1438565936, guid: fb82dfb8d1c7044c69afd2486befecb3, type: 3}
   explosionParticle: {fileID: 9125212449759046732, guid: cb7cd9b0c56a24d49a40784bd3203ae6, type: 3}
+  jumpForce: 1000
+  isOnGround: 1
+  gameManager: {fileID: 0}
+--- !u!114 &4820637045169878794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9004434708624858921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ddf96af9cab60440a7c6b6d3d8b518f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpSound: {fileID: 8300000, guid: 08ab7053d586c458db3774d33c141a4b, type: 3}
+  crashSound: {fileID: 8300000, guid: e7ee25a47d63b46cdaf65480d62b405c, type: 3}
+  getMoneySound: {fileID: 0}
+  moneyBlast: {fileID: 0}
+  dirtParticle: {fileID: 0}
+  explosionParticle: {fileID: 0}
   jumpForce: 10
   isOnGround: 1
   gameManager: {fileID: 0}

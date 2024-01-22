@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/JumpingJoe.unity
     guid: dc8c9f3efd746429fa6f9482dc779492
+  - enabled: 1
+    path: Assets/Scenes/PlayerSelect.unity
+    guid: 8dd9431719138164cab8f4c6f4e93e43
   m_configObjects: {}

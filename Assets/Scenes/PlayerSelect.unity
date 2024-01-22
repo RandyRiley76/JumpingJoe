@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: a765c240dfc87cb4b83d51194d27d5ba, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -492,6 +492,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerToSelect: {fileID: 0}
   playerSelectManager: {fileID: 1085578357}
+  GameManager: {fileID: 0}
 --- !u!4 &688077083 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4436479068239392748, guid: 82a78f918c14b84488f40bf354f4bc8b, type: 3}
@@ -561,6 +562,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerToSelect: {fileID: 0}
   playerSelectManager: {fileID: 1085578357}
+  GameManager: {fileID: 0}
 --- !u!1 &1185733882
 GameObject:
   m_ObjectHideFlags: 0
@@ -818,6 +820,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerToSelect: {fileID: 0}
   playerSelectManager: {fileID: 1085578357}
+  GameManager: {fileID: 0}
 --- !u!1 &1344608578
 GameObject:
   m_ObjectHideFlags: 0
@@ -831,7 +834,7 @@ GameObject:
   - component: {fileID: 1344608581}
   - component: {fileID: 1344608580}
   m_Layer: 5
-  m_Name: Button
+  m_Name: ButtonBack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -900,7 +903,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1344608581}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1085578358}
+        m_TargetAssemblyTypeName: PlayerSelectManager, Assembly-CSharp
+        m_MethodName: BackToGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1344608581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -958,6 +973,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerToSelect: {fileID: 0}
   playerSelectManager: {fileID: 1085578357}
+  GameManager: {fileID: 0}
 --- !u!1 &1560579361 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9004434708624858921, guid: 2a03a2b7a9e60e74893af83a8fa51d60, type: 3}
@@ -977,6 +993,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerToSelect: {fileID: 0}
   playerSelectManager: {fileID: 1085578357}
+  GameManager: {fileID: 0}
 --- !u!1 &1665781238 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6757805452726563664, guid: 60227c6583898a647a1d8aa27dc44312, type: 3}
@@ -996,6 +1013,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerToSelect: {fileID: 0}
   playerSelectManager: {fileID: 1085578357}
+  GameManager: {fileID: 0}
 --- !u!1 &1704881244
 GameObject:
   m_ObjectHideFlags: 0
@@ -1109,6 +1127,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerToSelect: {fileID: 0}
   playerSelectManager: {fileID: 1085578357}
+  GameManager: {fileID: 0}
 --- !u!1 &2028454298
 GameObject:
   m_ObjectHideFlags: 0
@@ -1262,6 +1281,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerToSelect: {fileID: 0}
   playerSelectManager: {fileID: 1085578357}
+  GameManager: {fileID: 0}
 --- !u!1001 &287979441710524641
 PrefabInstance:
   m_ObjectHideFlags: 0

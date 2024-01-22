@@ -19,29 +19,23 @@ public class PlayerController : MonoBehaviour
     //public float gravityMultiplier = 2;
     public bool isOnGround = true;
     //public bool gameOver = false;
-    public GameManager gameManager;
+    // public GameManager gameManager;
     // Start is called before the first frame update
     void Start()
     {
         //GET REF TO GAME MANAGER SCRIPT
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+       // gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         playerAudio = GetComponent<AudioSource>();
         playerRb = GetComponent<Rigidbody>();
         playerAnim = GetComponent<Animator>();
-        // Physics.gravity *= gravityMultiplier;
-
-       // playerAudio.enabled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-       // if (Input.GetMouseButtonDown(0)) {
-       //     Debug.Log("Click");
-       // }
-
+       // dirtParticle.Play();
         //Physics jump
-        if ((Input.GetKeyDown(KeyCode.Space)|| Input.GetMouseButtonDown(0)) && isOnGround==true && gameManager.isGameActive) {
+        if ((Input.GetKeyDown(KeyCode.Space)|| Input.GetMouseButtonDown(0)) && isOnGround==true && GameManager.Instance.isGameActive) {
             playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isOnGround = false;
             dirtParticle.Stop();
@@ -58,7 +52,8 @@ public class PlayerController : MonoBehaviour
             moneyBlast.Play();
             Destroy(collision.gameObject);
             playerAudio.PlayOneShot(getMoneySound, 1f);
-            gameManager.GetMoney(1);
+            //gameManager.GetMoney(1);
+            GameManager.Instance.GetMoney(1);
         }
         else if (collision.gameObject.CompareTag("Bomb"))
         {
@@ -69,19 +64,19 @@ public class PlayerController : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        //IF ON GROUND THEN PLAY THE DIRT PARTICLES
+        //STOP GAME ON OBSTICAL COLLISION
         if (collision.gameObject.CompareTag("Obstical"))
         {
             // Destroy(collision.gameObject);
             GameOver();
-        }
-        else if (collision.gameObject.CompareTag("Ground")&& gameManager.isGameActive)
+        }//IF ON GROUND THEN PLAY THE DIRT PARTICLES
+        else if (collision.gameObject.CompareTag("Ground")&& GameManager.Instance.isGameActive)
         {
             isOnGround = true;
             dirtParticle.Play();
             
         }
-  
+        
     }
     private void GameOver() {
         playerAnim.SetBool("Death_b", true);
@@ -90,9 +85,9 @@ public class PlayerController : MonoBehaviour
         explosionParticle.Play();
         playerAudio.PlayOneShot(crashSound, 1f);
         // RemoveAllGameObjects();
-       
-        gameManager.GameOver();
-        
+
+        // gameManager.GameOver();
+        GameManager.Instance.GameOver();
     }
 
 }

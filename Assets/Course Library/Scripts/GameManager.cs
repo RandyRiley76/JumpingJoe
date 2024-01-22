@@ -6,18 +6,37 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
+    //FOR DATA PERSISTANCE
+    public static GameManager Instance;
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+
+        //VAR TO LOAD ONLY ONCE
+        Physics.gravity *= 3;
+        playerType = "Player0";
+
+
+
+    }
     /// UI
     public GameObject startMenu;
-    public GameObject scoreViewer;//show level and money in left
-    public TextMeshProUGUI walletText;
+    public GameObject scoreViewer;
+    public TextMeshProUGUI walletText; 
    // public TextMeshProUGUI levelText;
     public TextMeshProUGUI highScoreText;
     public TextMeshProUGUI tryAgainText;
 
-    public bool isGameActive;
-    private int highScore=0;
+    public bool isGameActive=false;
+    public int highScore=0;
     private int walletTotal = 0;
-    // public GameObject spawnManager;
+    public Vector3 placeHolderPostion;
 
     /// SPAWN STUFF
     /// 
@@ -25,7 +44,9 @@ public class GameManager : MonoBehaviour {
     public GameObject[] obsticalPrefab;
     public GameObject bomb;
     public GameObject money;
-    public GameObject player;
+    public string playerType;//Player0
+    public  int playerIndex;
+    public GameObject[] player; 
     private Vector3 spawnPosMoney = new Vector3(25, 4, 0);
     private Vector3 spawnPosObstical = new Vector3(25, 0, 0);
     private float startDelay = 2;
@@ -41,6 +62,14 @@ public class GameManager : MonoBehaviour {
     /// /LEVEL CHANGE
     /// </summary>
     public int timesBackgroundTilled;
+
+
+    public void LoadPlayerSelect()
+    {
+        SceneManager.LoadScene(1);
+    }
+   // SceneManager.sceneLoaded
+
 
     private void Update()
     {
@@ -58,9 +87,6 @@ public class GameManager : MonoBehaviour {
                SpawnObstacle();
                 moreMoneySpawned = 2;
             }
-
-
-
             spawnInterval = Random.Range(spawnIntervalMin, spawnIntervalMax);
         }
     }
@@ -68,29 +94,71 @@ public class GameManager : MonoBehaviour {
         if (wallet > highScore) { highScore = wallet; }
     highScoreText.text ="HIGH SCORE $"+ highScore;
     }
+    
+    //private void OnLevelWasLoaded(int level) //START //
     private void Start()
     {
+        //PAUSE AT GAMESTART
         isGameActive = false;
-        GetMoney(0);
-        SetHighScore(0);
-        //
-        
+        //playerToSelect = GameObject.Find(GameManager.Instance.playerType);
+
+
+       // Debug.Log(playerType);
         //NEW SPAWN SYSTEM-runs on Update() per frame basis
         spawnInterval = Random.Range(spawnIntervalMin, spawnIntervalMax);
-
+       // 
         moreMoneySpawned = 2;
-        Physics.gravity *= 3;
+
+        SetHighScore(highScore);
+        //UI NEEDS TO BE REACTIVATED AFTER GETTING GAME CHARACTER CHANGE
+        //turn off the scoreboard before playing.
+       // GameObject.Find("Canvas/Score").SetActive(false);
+
+    }
+    public void OnLevelWasLoaded(int level)
+    {
+        scoreViewer = GameObject.Find("Canvas/Score");
+        //scoreViewer.SetActive(true);
+        SetHighScore(highScore);
+    }
+    public void RestartGame()///RESTART
+    {
+        startMenu = GameObject.Find("Canvas/StartMenu");
+       // scoreViewer = GameObject.Find("Canvas/Score");
+        scoreViewer.SetActive(true);
+        highScoreText = GameObject.Find("Canvas/Score/HighScoreText").GetComponent<TextMeshProUGUI>();
+        walletText = GameObject.Find("Canvas/Score/WalletText").GetComponent<TextMeshProUGUI>();
+        GetMoney(0);
+        SetHighScore(highScore);
+        //UI
+        startMenu.SetActive(false);
+        // scoreViewer.SetActive(true);
+        //
+        RemoveAllGameObjects();
+
+        walletTotal = 0;
+        SetHighScore(walletTotal);
+        GetMoney(0);
+        isGameActive = true;
+        timesBackgroundTilled = 0;
+        
+        
+        SpawnStuff();
+    }
+    public int GetSelectedCharacter(string PlayerString)
+    {   
+       //RETURN PLAYER NUMBER FROM STRING
+        return System.Convert.ToInt32(PlayerString.Substring(6, 1));
     }
     /// <summary>
     public void SpawnStuff()
     {
+       // Debug.Log(playerIndex);
        // GameObject.
-        Instantiate(player, new Vector3(0, 0, 0), player.transform.rotation);
+       Instantiate(player[playerIndex], new Vector3(0, 0, 0), player[playerIndex].transform.rotation);
+      
         isGameActive = true;
         tileBackgroundReset();
-
-        // Debug.Log("Spawing Stuff");
-
     }
     public void tileBackgroundReset()
     {
@@ -101,9 +169,8 @@ public class GameManager : MonoBehaviour {
     {
         if (isGameActive)
         {
-            
             Instantiate(obsticalPrefab[Random.Range(0, obsticalPrefab.Length)], spawnPosObstical, obsticalPrefab[0].transform.rotation);
-         
+
         }
     }
     void SpawnMoney()
@@ -123,34 +190,11 @@ public class GameManager : MonoBehaviour {
 
     }
 
-/// </summary>
+    /// </summary>
 
-public void GameOver() {
-     
-        isGameActive = false;
-       startMenu.SetActive(true);
-        tryAgainText.text = "Do you want to try again?";
-    }
- 
-    public void RestartGame()
-    {
+    
 
-        RemoveAllGameObjects();
-        SetHighScore(walletTotal);
-        walletTotal = 0;
-        isGameActive = true;
-        //highScoreText.text = "LEVEL 1";
 
-        GetMoney(0);
-        timesBackgroundTilled = 0;
-        //Debug.Log("Game Over " + timesBackgroundTilled);
-        //UI
-        startMenu.SetActive(false);
-        scoreViewer.SetActive(true);
-        
-        SpawnStuff();
-       
-    }
     public void RemoveAllGameObjects()
     {
         //DESTROY OBSTICALS 
@@ -172,6 +216,15 @@ public void GameOver() {
         SetHighScore(walletTotal);
         walletText.text = "You've got $" + walletTotal;
     }
+    public void GameOver()
+    {
 
+        isGameActive = false;
+        startMenu.SetActive(true);
+        tryAgainText.text = "Do you want to try again?";
+    }
+    public void Test() {
+        Debug.Log("IT WORKS");
+    }
 
 }

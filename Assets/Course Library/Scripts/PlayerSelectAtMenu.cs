@@ -9,6 +9,7 @@ public class PlayerSelectAtMenu : MonoBehaviour
     private Animator playerAnim;
     private GameObject displayPlayer;
     public GameObject playerSelectManager;
+    public GameManager GameManager;
 
     // Start is called before the first frame update
     private void Awake()
@@ -33,27 +34,13 @@ public class PlayerSelectAtMenu : MonoBehaviour
     }
     private void OnMouseDown()
     {
-        // Debug.Log(gameObject.name);
+        //FIGURE OUT WHICH CHARACTER WAS SELECTED AND GIVE NAME
         playerToSelect = GameObject.Find(gameObject.name);
         playerSelectManager.GetComponent<PlayerSelectManager>().playerToSelect = playerToSelect;
         playerSelectManager.GetComponent<PlayerSelectManager>().ChangeDisplayPlayer();
-    
-      
-    }
-   private void ShowChosenCharacter()
-    {
-        if (displayPlayer != null)
-        {
-          Debug.Log("DESTROY");
-          Destroy(displayPlayer);
-        }
-       
-        displayPlayer = Instantiate(playerToSelect, new Vector3(0, -3.52f, 5.31f), Quaternion.Euler(0, 150, 0)) as GameObject;
-        displayPlayer.transform.localScale += new Vector3(1.5f, 1.5f, 1.5f);
-       // 
-       // Debug.Log(displayPlayer);
-
-
+        //GameManager.Instance.player = playerToSelect;
+        GameManager.Instance.playerType = gameObject.name;
+        GameManager.Instance.playerIndex = GameManager.Instance.GetSelectedCharacter(gameObject.name);
     }
 }
 
