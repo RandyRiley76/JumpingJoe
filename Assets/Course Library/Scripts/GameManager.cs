@@ -4,7 +4,8 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-
+// This is helpful for UI, since other things may need to be initialized before setting the UI
+[DefaultExecutionOrder(1000)]
 public class GameManager : MonoBehaviour {
     //FOR DATA PERSISTANCE
     public static GameManager Instance;
